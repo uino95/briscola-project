@@ -16,11 +16,18 @@ public class Partita {
         this.toccaA = giocatore1;
     }
 
-    public Partita(Mazzo mazzo, Giocatore giocatore1, Giocatore giocatore2, Carta cartaBriscola) {
-        this.mazzo = mazzo;
-        this.giocatore1 = giocatore1;
-        this.giocatore2 = giocatore2;
+    public Partita(Carta carta1, Carta carta2, Carta carta3, Carta cartaBriscola) throws Exception {
+        this.mazzo = new Mazzo();
+        this.mazzo.mischiaCarte();
+        this.giocatore1.aggiungiCartaInMano(carta1);
+        this.giocatore1.aggiungiCartaInMano(carta2);
+        this.giocatore1.aggiungiCartaInMano(carta3);
         this.cartaBriscola = cartaBriscola;
+        mazzo.togliCarta(carta1);
+        mazzo.togliCarta(carta2);
+        mazzo.togliCarta(carta3);
+        mazzo.togliCarta(cartaBriscola);
+        System.out.println("partita iniziata");
     }
 
     private void iniziaPartita() throws Exception {
@@ -78,19 +85,43 @@ public class Partita {
         }
     }
 
+    public Giocatore ritornaVincitore() {
+        if (this.giocatore1.getPunteggio() < this.giocatore2.getPunteggio()) {
+            System.out.println("Partita finita, vince il " + this.giocatore2.getNome() + " con un punteggio di " + this.giocatore2.getPunteggio() + " a " + this.giocatore1.getPunteggio());
+            return giocatore2;
+        } else if (this.giocatore1.getPunteggio() > this.giocatore2.getPunteggio()) {
+            System.out.println("Partita finita, vince il " + this.giocatore1.getNome() + " con un punteggio di " + this.giocatore1.getPunteggio() + " a " + this.giocatore2.getPunteggio());
+            return giocatore1;
+        } else {
+            System.out.println("Partita finita in parità");
+            return null;
+        }
+    }
+
+
+
     //TODO guardare il metodo che mi ritorna il nome dell'istanza della classe.
-    public void giocaMano() throws Exception {
+    public void giocaMano(Carta cartaDaGiocare ) throws Exception {
         Giocatore notToccaA = notToccaA();
         int sumPunti;
 
         System.out.println("siamo al turno numero " + this.turno);
 
-        Carta cartaGiocata1 = this.toccaA.giocaCarta();
+        Carta cartaGiocata1;
+
+        if (cartaDaGiocare == null) {
+
+            cartaGiocata1 = this.toccaA.giocaCarta();
+        }
+
+        else cartaGiocata1 = cartaDaGiocare;
+
         System.out.println("Il " + this.toccaA.getNome() + " ha giocato " + cartaGiocata1);
         Carta cartaGiocata2 = notToccaA.giocaCarta();
         System.out.println("Il " + notToccaA.getNome() + " ha giocato " + cartaGiocata2);
         Carta cartaVincente = valutaCartaVincente(cartaGiocata1, cartaGiocata2);
         sumPunti = cartaGiocata1.getValore() + cartaGiocata2.getValore();
+
 
         if (cartaVincente.equals(cartaGiocata1)) {
             this.toccaA.addMazzetto(cartaGiocata1, cartaGiocata2);
@@ -124,9 +155,17 @@ public class Partita {
     public void giocaPartita() throws Exception {
         iniziaPartita();
         while (this.turno < 20) {
-            giocaMano();
+            giocaMano(null);
         }
         valutaVincitore();
+    }
+
+    public Giocatore vincitoreGiocandoCarta(Carta cartaDaGiocare) throws Exception {//ritonra il vincitore della partita
+        giocaMano(cartaDaGiocare);
+        while (this.turno < 19) {
+            giocaMano(null);
+        }
+        return ritornaVincitore();
     }
 
 }
