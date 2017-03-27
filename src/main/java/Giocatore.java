@@ -15,8 +15,6 @@ public class Giocatore {
         this.mano = new ArrayList<Carta>();
         this.mazzetto = new ArrayList<Carta>();
     }
-
-
     public List<Carta> getMano() {
         return mano;
     }
@@ -46,7 +44,7 @@ public class Giocatore {
     }
 
     public void addMazzetto(Carta carta1, Carta carta2) throws Exception{
-        if (this.mazzetto.size()>=40 || this.mazzetto.size()%2 != 0){
+        if (this.mazzetto.size()>=40 || this.mazzetto.size()%2 != 0){ //mi da sicurezza in più
             throw new Exception();
         }
         this.mazzetto.add(carta1);
