@@ -28,10 +28,13 @@ public class Giocatore {
     }
 
     public void aggiungiCartaInMano(Carta carta) throws Exception{
+        //int i=0;
         if (this.mano.size() >= 3){
             throw new Exception();
         }
         mano.add(carta);
+        // for(Carta cartaDellaMano : this.mano);
+        // return;
     }
 
     public Carta giocaCarta() throws Exception {
@@ -48,6 +51,21 @@ public class Giocatore {
         cartaGiocata = this.mano.get(i);
         this.mano.remove(i);
         return cartaGiocata;
+    }
+
+    public Carta giocaCarta(Carta cartaDaGiocare){
+        int i=0;
+        for (Carta cartaGiocata : this.mano){
+            i++;
+            Carta cartaCheGioco;
+            if (cartaGiocata == cartaDaGiocare){
+                cartaCheGioco = cartaGiocata;
+                this.mano.remove(i);
+                return cartaCheGioco;
+            }
+        }
+        System.out.println("se sei arrivato qua c'è un errore");
+        return null;
     }
 
     public void addMazzetto(Carta carta1, Carta carta2) throws Exception{

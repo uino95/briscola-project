@@ -19,14 +19,22 @@ public class Partita {
     public Partita(Carta carta1, Carta carta2, Carta carta3, Carta cartaBriscola) throws Exception {
         this.mazzo = new Mazzo();
         this.mazzo.mischiaCarte();
+        this.giocatore1 = new Giocatore("giocatore1");
+        this.giocatore2 = new Giocatore("giocatore2");
         this.giocatore1.aggiungiCartaInMano(carta1);
         this.giocatore1.aggiungiCartaInMano(carta2);
         this.giocatore1.aggiungiCartaInMano(carta3);
+        this.toccaA = giocatore1;
         this.cartaBriscola = cartaBriscola;
         mazzo.togliCarta(carta1);
         mazzo.togliCarta(carta2);
         mazzo.togliCarta(carta3);
         mazzo.togliCarta(cartaBriscola);
+        for (int i = 0; i < 3; i++) {
+            Carta cartaPescata = mazzo.estrai();
+            giocatore2.aggiungiCartaInMano(cartaPescata);
+            System.out.println("Il giocatore 2 ha pescato " + cartaPescata);
+        }
         System.out.println("partita iniziata");
     }
 
@@ -114,7 +122,9 @@ public class Partita {
             cartaGiocata1 = this.toccaA.giocaCarta();
         }
 
-        else cartaGiocata1 = cartaDaGiocare;
+        else{ cartaGiocata1 = cartaDaGiocare;
+        this.toccaA.giocaCarta(0);
+        }
 
         System.out.println("Il " + this.toccaA.getNome() + " ha giocato " + cartaGiocata1);
         Carta cartaGiocata2 = notToccaA.giocaCarta();

@@ -4,21 +4,28 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String args[]) throws Exception {
-//        Giocatore meStesso = new Giocatore("meStesso");
-//        Scanner in = new Scanner(System.in);
-//        System.out.println("Scrivi il nome della prima carta");
-//        String carta1 = in.nextLine();
-//        String carta2 = in.nextLine();
-//        String carta3 = in.nextLine();
-//
-//        meStesso.aggiungiCartaInMano(carta1);
-//        meStesso.aggiungiCartaInMano(carta2);
-//        meStesso.aggiungiCartaInMano(carta3);
 
         System.out.println("Briscola Project started my friend!!");
 
-        Partita partita = new Partita();
-        partita.giocaPartita();
+        Carta cartaMano1 = Carta.ASSOBASTONI;
+        Carta cartaMano2 = Carta.TREBASTONI;
+        Carta cartaMano3 = Carta.REBASTONI;
+        Carta cartaBriscola = Carta.CAVALLOBASTONI;
+
+/*        new Thread(new Runnable() {
+            public void run() {
+                int numPartite = 0;
+                while (numPartite<100) {
+                    Partita partita1 = new Partita((cartaMano1, cartaMano2, cartaMano3, cartaBriscola));
+                    partita1.vincitoreGiocandoCarta(cartaMano1);
+                    numPartite++;
+                }
+            }
+        })*/
+
+        Partita partita = new Partita(cartaMano1, cartaMano2, cartaMano3, cartaBriscola);
+        partita.vincitoreGiocandoCarta(cartaMano1);
+
 
 
     }
