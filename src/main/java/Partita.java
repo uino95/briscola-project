@@ -5,7 +5,7 @@ public class Partita {
 
     int turno;
     private Mazzo mazzo;
-    private Giocatore giocatore1, giocatore2,  toccaA;
+    private Giocatore giocatore1, giocatore2, toccaA;
     private Carta cartaBriscola, cartaATerra;
 
     public Partita() {//per adesso non posso inserire io il giocatore... tutto casuale per il momento
