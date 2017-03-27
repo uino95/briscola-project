@@ -14,7 +14,9 @@ public class Main {
 //        meStesso.aggiungiCartaInMano(carta1);
 //        meStesso.aggiungiCartaInMano(carta2);
 //        meStesso.aggiungiCartaInMano(carta3);
-        
+
+        System.out.println("Briscola Project started my friend!!");
+
         Partita partita = new Partita();
         partita.giocaPartita();
 
