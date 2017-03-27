@@ -43,6 +43,13 @@ public class Giocatore {
         return cartaGiocata;
     }
 
+    public Carta giocaCarta(int i){
+        Carta cartaGiocata;
+        cartaGiocata = this.mano.get(i);
+        this.mano.remove(i);
+        return cartaGiocata;
+    }
+
     public void addMazzetto(Carta carta1, Carta carta2) throws Exception{
         if (this.mazzetto.size()>=40 || this.mazzetto.size()%2 != 0){ //doppio controllo
             throw new Exception();
