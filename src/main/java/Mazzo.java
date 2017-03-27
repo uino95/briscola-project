@@ -36,4 +36,8 @@ public class Mazzo {
         this.carte.remove(0);
         return cartaPescata;
     }
+
+    public void togliCarta(Carta carta){
+        carte.remove(carta);
+    }
 }
