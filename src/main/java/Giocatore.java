@@ -44,7 +44,7 @@ public class Giocatore {
     }
 
     public void addMazzetto(Carta carta1, Carta carta2) throws Exception{
-        if (this.mazzetto.size()>=40 || this.mazzetto.size()%2 != 0){ //doppio controllo per più sicurezza
+        if (this.mazzetto.size()>=40 || this.mazzetto.size()%2 != 0){ //doppio controllo
             throw new Exception();
         }
         this.mazzetto.add(carta1);
