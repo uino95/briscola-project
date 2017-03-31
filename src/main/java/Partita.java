@@ -9,31 +9,67 @@ public class Partita {
         StatoPartita statoPartita = ilMioStato;
     }
 
-    public void prosegui(){
-        this.statoPartita.getToccaA().giocaCarta(0);
-    }
+    public int scegliCarta() throws Exception {
+        if (this.statoPartita.getToccaA().getMano().size() == 3) {
+            int a, b, c;
 
-    public int scegliCarta(){
-        return 1;
-    }
+            statoConCarta1 = statoPartita.clone();
+            statoConCarta2 = statoPartita.clone();
+            statoConCarta3 = statoPartita.clone();
 
-    public void gettaCarta(int i){
-        statoPartita.addCartaSulTavolo(statoPartita.getToccaA().giocaCarta(i));
-    }
+            statoConCarta1.gettaCarta(0);
+            statoConCarta2.gettaCarta(1);
+            statoConCarta3.gettaCarta(2);
 
-    public void aggiornaStato(){
-        if (this.statoPartita.getTurno()%2 == 1 && this.statoPartita.getFase() == Fase.GIOCANDOPRIMACARTA){
-            this.statoPartita.changeToccaA();
-            this.statoPartita.avanzaTurno();
-            this.statoPartita.avanzaStato();
-            //TODO passaggio di funzione del tipo Partita.sceglicarta()
+            statoConCarta1.aggiornaStato();
+            statoConCarta2.aggiornaStato();
+            statoConCarta3.aggiornaStato();
+
+            Partita partita1 = new Partita(statoConCarta1);
+            Partita partita2 = new Partita(statoConCarta2);
+            Partita partita3 = new Partita(statoConCarta3);
+
+            a = partita1.scegliCarta();
+            b = partita2.scegliCarta();
+            c = partita3.scegliCarta();
+
+            if ((a > b && a > c && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore1())) || (a < b && a < c && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore2()))) {
+                return a;
+            } else if ((b > a && b > c && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore1())) || (b < a && b < c && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore2()))) {
+                return b;
+            } else return c;
         }
-        else if (this.statoPartita.getTurno()%2 == 0 && this.statoPartita.getFase() == Fase.GIOCANDOSECONDACARTA){
-            this.statoPartita.risolviMano();
+        else if (this.statoPartita.getToccaA().getMano().size() == 2){
+            int a, b;
+
+            this.statoConCarta1 = this.statoPartita.clone();
+            this.statoConCarta2 = this.statoPartita.clone();
+
+            this.statoConCarta1.gettaCarta(0);
+            this.statoConCarta2.gettaCarta(1);
+
+            this.statoConCarta1.aggiornaStato();
+            this.statoConCarta2.aggiornaStato();
+
+            Partita partita1 = new Partita(this.statoConCarta1);
+            Partita partita2 = new Partita(this.statoConCarta2);
+
+            a = partita1.scegliCarta();
+            b = partita2.scegliCarta();
+
+            if ((a > b && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore1())) || (a < b && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore2()))) {
+                return a;
+            } else return b;
+        }
+        else {
+            this.statoPartita.gettaCarta(0);
+            this.statoPartita.aggiornaStato();
+            this.statoPartita.gettaCarta(0);
+            this.statoPartita.aggiornaStato();
+            return this.statoPartita.getGiocatore1().getPunteggio();
         }
     }
-
-
+}
 
 
 
@@ -65,10 +101,10 @@ public class Partita {
             this.statoPartita.setFase(Fase.GIOCANDOPRIMACARTA);
         }
     }
-    */
 
 
-}
+
+}   */
 
 
 

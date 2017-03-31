@@ -11,6 +11,7 @@ public class StatoPartita {
     private Giocatore giocatore1;
     private Giocatore giocatore2;
     private Giocatore toccaA;
+    private Giocatore notToccaA;
     private int turno;
     private Fase fase;
     private List<Carta> carteSulTavolo;
@@ -19,6 +20,7 @@ public class StatoPartita {
         this.giocatore1 = new Giocatore("giocatore1");
         this.giocatore2 = new Giocatore("giocatore2");
         this.toccaA = giocatore1;
+        this.notToccaA = giocatore2;
         this.mazzo = new Mazzo();
         this.mazzo.mischiaCarte();
         this.turno = 1;
@@ -26,7 +28,12 @@ public class StatoPartita {
         this.carteSulTavolo = new ArrayList<Carta>();
     }
 
-    //getter and setter degli attributi
+    @Override
+        protected StatoPartita clone(){
+        StatoPartita statoPartitaClone = this;
+        return statoPartitaClone;
+    }
+
     public Carta getBriscola() {
         return briscola;
     }
@@ -50,11 +57,13 @@ public class StatoPartita {
     public Giocatore getToccaA() { return toccaA; }
 
     public void changeToccaA(){
-        if (this.toccaA.equals(this.giocatore1)){
+        if (this.toccaA.equals(this.giocatore1) && this.notToccaA.equals(this.giocatore2)){
             this.toccaA = this.giocatore2;
+            this.notToccaA = this.giocatore1;
         }
-        if (this.toccaA.equals(this.giocatore2)){
+        if (this.toccaA.equals(this.giocatore2) && this.notToccaA.equals(this.giocatore1)){
             this.toccaA = this.giocatore1;
+            this.notToccaA = this.giocatore2;
         }
     }
 
@@ -73,9 +82,6 @@ public class StatoPartita {
             this.fase = Fase.GIOCANDOSECONDACARTA;
         }
         else if (this.fase == Fase.GIOCANDOSECONDACARTA){
-            this.fase = Fase.AGGIORNANDOGIOCO;
-        }
-        else if (this.fase == Fase.AGGIORNANDOGIOCO){
             this.fase = Fase.GIOCANDOPRIMACARTA;
         }
     }
@@ -84,21 +90,55 @@ public class StatoPartita {
         return carteSulTavolo;
     }
 
-    public void addCartaSulTavolo(Carta carta) {
-        this.carteSulTavolo.add(carta);
-    }
-
-    //fine getter and setter
 
     public void risolviMano() throws Exception{
         if (this.carteSulTavolo.size() != 2){
             throw new Exception();
         }
-        if (this.carteSulTavolo.get(1).getSeme() == this.briscola.getSeme() && this.carteSulTavolo.get(0).getSeme() != this.briscola.getSeme()){
+        if ((this.carteSulTavolo.get(1).getSeme() == this.briscola.getSeme() && this.carteSulTavolo.get(0).getSeme() != this.briscola.getSeme())
+            || (this.carteSulTavolo.get(1).getSeme() == this.carteSulTavolo.get(0).getSeme() && this.carteSulTavolo.get(1).getNumero() > this.carteSulTavolo.get(1).getNumero())){
             this.toccaA.addMazzetto(this.carteSulTavolo.get(0), this.carteSulTavolo.get(1));
             this.carteSulTavolo.remove(0);
             this.carteSulTavolo.remove(1);
         }
+        else {
+            this.changeToccaA();
+            this.toccaA.addMazzetto(this.carteSulTavolo.get(0), this.carteSulTavolo.get(1));
+            this.carteSulTavolo.remove(0);
+            this.carteSulTavolo.remove(1);
+        }
+    }
+
+    public void gettaCarta(int i){
+        this.carteSulTavolo.add(this.toccaA.giocaCarta(i));
+    }
+
+    public void pescaCarte() throws Exception{
+        this.toccaA.aggiungiCartaInMano(mazzo.estrai());
+        this.notToccaA.aggiungiCartaInMano(mazzo.estrai());
+    }
+
+    public void aggiornaStato() throws Exception{
+        if (this.turno%2 == 1 && this.fase == Fase.GIOCANDOPRIMACARTA){
+            this.changeToccaA();
+            this.avanzaTurno();
+            this.avanzaStato();
+        }
+        else if (this.turno%2 == 0 && this.fase == Fase.GIOCANDOSECONDACARTA){
+            this.risolviMano();
+            if (this.turno == 40){
+                return ;
+            }
+            if (this.turno < 36) {
+                this.pescaCarte();
+            }
+            this.avanzaTurno();
+            this.avanzaStato();
+        }
+    }
+
+    public void risolviPartita(){
+
     }
 
 }

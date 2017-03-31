@@ -4,7 +4,7 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String args[]) throws Exception {
-
+        int i;
         System.out.println("Briscola Project started my friend!!");
 
         StatoPartita statoPartita = new StatoPartita();
@@ -27,7 +27,8 @@ public class Main {
         System.out.println("\ncarte nel mazzo: " + statoPartita.getMazzo().getCarte().size());
 
         Partita veraPartita = new Partita(statoPartita);
-        veraPartita.scegliCarta();
+        i = veraPartita.scegliCarta();
+        System.out.println("ciao");
 
 /*        new Thread(new Runnable() {
             public void run() {
