@@ -6,32 +6,35 @@ public class Partita {
     private StatoPartita statoPartita, statoConCarta1, statoConCarta2, statoConCarta3;
 
     public Partita(StatoPartita ilMioStato) {
-        StatoPartita statoPartita = ilMioStato;
+        this.statoPartita = ilMioStato;
     }
 
     public int scegliCarta() throws Exception {
+        System.out.println("ciao sono dentro scegliCarta");
         if (this.statoPartita.getToccaA().getMano().size() == 3) {
             int a, b, c;
 
-            statoConCarta1 = statoPartita.clone();
-            statoConCarta2 = statoPartita.clone();
-            statoConCarta3 = statoPartita.clone();
+            System.out.println("ciao sono dentro il caso 3 carte in mano");
 
-            statoConCarta1.gettaCarta(0);
-            statoConCarta2.gettaCarta(1);
-            statoConCarta3.gettaCarta(2);
+            this.statoConCarta1 = this.statoPartita.clone();
+            this.statoConCarta2 = this.statoPartita.clone();
+            this.statoConCarta3 = this.statoPartita.clone();
 
-            statoConCarta1.aggiornaStato();
-            statoConCarta2.aggiornaStato();
-            statoConCarta3.aggiornaStato();
+            this.statoConCarta1.gettaCarta(2);
+            this.statoConCarta2.gettaCarta(1);
+            this.statoConCarta3.gettaCarta(0);
 
-            Partita partita1 = new Partita(statoConCarta1);
-            Partita partita2 = new Partita(statoConCarta2);
-            Partita partita3 = new Partita(statoConCarta3);
+            this.statoConCarta1.aggiornaStato();
+            this.statoConCarta2.aggiornaStato();
+            this.statoConCarta3.aggiornaStato();
 
-            a = partita1.scegliCarta();
+            Partita partita1 = new Partita(this.statoConCarta1);
+            Partita partita2 = new Partita(this.statoConCarta2);
+            Partita partita3 = new Partita(this.statoConCarta3);
+
+            c = partita1.scegliCarta();
             b = partita2.scegliCarta();
-            c = partita3.scegliCarta();
+            a = partita3.scegliCarta();
 
             if ((a > b && a > c && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore1())) || (a < b && a < c && this.statoPartita.getToccaA().equals(this.statoPartita.getGiocatore2()))) {
                 return a;
@@ -45,8 +48,8 @@ public class Partita {
             this.statoConCarta1 = this.statoPartita.clone();
             this.statoConCarta2 = this.statoPartita.clone();
 
-            this.statoConCarta1.gettaCarta(0);
-            this.statoConCarta2.gettaCarta(1);
+            this.statoConCarta1.gettaCarta(1);
+            this.statoConCarta2.gettaCarta(0);
 
             this.statoConCarta1.aggiornaStato();
             this.statoConCarta2.aggiornaStato();

@@ -28,7 +28,7 @@ public class Main {
 
         Partita veraPartita = new Partita(statoPartita);
         i = veraPartita.scegliCarta();
-        System.out.println("ciao");
+        System.out.println(i);
 
 /*        new Thread(new Runnable() {
             public void run() {
