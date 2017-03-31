@@ -15,9 +15,9 @@ public enum Carta {
     CINQUECOPPE(5, 0, Seme.COPPE), SEICOPPE(6,0,Seme.COPPE), SETTECOPPE(7,0,Seme.COPPE), DONNACOPPE(8,2,Seme.COPPE),
     CAVALLOCOPPE(9,3,Seme.COPPE), RECOPPE(10,4,Seme.COPPE);
 
-    private int numero;
-    private int valore;
-    private Seme seme;
+    private final int numero;
+    private final int valore;
+    private final Seme seme;
 
     Carta(int numero, int valore, Seme seme) {
         this.numero = numero;
@@ -29,26 +29,13 @@ public enum Carta {
         return valore;
     }
 
-    public void setValore(int valore) {
-        this.valore = valore;
-    }
-
     public int getNumero() {
         return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public Seme getSeme() {
         return seme;
     }
-
-    public void setSeme(Seme seme) {
-        this.seme = seme;
-    }
-
 
 }
 

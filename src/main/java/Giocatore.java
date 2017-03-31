@@ -19,6 +19,12 @@ public class Giocatore {
         return mano;
     }
 
+    public void stampaMano(){
+        for (Carta i: this.mano){
+            System.out.println(nome + ": " + i);
+        }
+    }
+
     public List<Carta> getMazzetto() {
         return mazzetto;
     }

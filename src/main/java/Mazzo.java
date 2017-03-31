@@ -15,6 +15,10 @@ public class Mazzo {
         }
     }
 
+    public List<Carta> getCarte() {
+        return carte;
+    }
+
     public void mischiaCarte(){
         Collections.shuffle(carte);
     }

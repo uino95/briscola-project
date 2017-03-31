@@ -3,6 +3,79 @@
  */
 public class Partita {
 
+    private StatoPartita statoPartita, statoConCarta1, statoConCarta2, statoConCarta3;
+
+    public Partita(StatoPartita ilMioStato) {
+        StatoPartita statoPartita = ilMioStato;
+    }
+
+    public void prosegui(){
+        this.statoPartita.getToccaA().giocaCarta(0);
+    }
+
+    public int scegliCarta(){
+        return 1;
+    }
+
+    public void gettaCarta(int i){
+        statoPartita.addCartaSulTavolo(statoPartita.getToccaA().giocaCarta(i));
+    }
+
+    public void aggiornaStato(){
+        if (this.statoPartita.getTurno()%2 == 1 && this.statoPartita.getFase() == Fase.GIOCANDOPRIMACARTA){
+            this.statoPartita.changeToccaA();
+            this.statoPartita.avanzaTurno();
+            this.statoPartita.avanzaStato();
+            //TODO passaggio di funzione del tipo Partita.sceglicarta()
+        }
+        else if (this.statoPartita.getTurno()%2 == 0 && this.statoPartita.getFase() == Fase.GIOCANDOSECONDACARTA){
+            this.statoPartita.risolviMano();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*         avanzaStatoPartita in Partita
+    public void avanzaStatoPartita{
+        if (this.statoPartita.getFase() == Fase.GIOCANDOPRIMACARTA){
+            this.statoPartita.setFase(Fase.GIOCANDOSECONDACARTA);
+        }
+        if (this.statoPartita.getFase() == Fase.GIOCANDOSECONDACARTA){
+            this.statoPartita.setFase(Fase.AGGIORNANDOGIOCO);
+        }
+        if (this.statoPartita.getFase() == Fase.AGGIORNANDOGIOCO){
+            this.statoPartita.setFase(Fase.GIOCANDOPRIMACARTA);
+        }
+    }
+    */
+
+
+}
+
+
+
+
+
+
+    /*
     int turno;
     private Mazzo mazzo;
     private Giocatore giocatore1, giocatore2, toccaA;
@@ -108,7 +181,7 @@ public class Partita {
 
 
 
-    //TODO guardare il metodo che mi ritorna il nome dell'istanza della classe.
+    //todo guardare il metodo che mi ritorna il nome dell'istanza della classe.
     public void giocaMano(Carta cartaDaGiocare ) throws Exception {
         Giocatore notToccaA = notToccaA();
         int sumPunti;
@@ -177,5 +250,4 @@ public class Partita {
         }
         return ritornaVincitore();
     }
-
-}
+    */

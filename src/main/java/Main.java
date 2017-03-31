@@ -7,10 +7,27 @@ public class Main {
 
         System.out.println("Briscola Project started my friend!!");
 
-        Carta cartaMano1 = Carta.ASSOBASTONI;
-        Carta cartaMano2 = Carta.TREBASTONI;
-        Carta cartaMano3 = Carta.REBASTONI;
-        Carta cartaBriscola = Carta.CAVALLOBASTONI;
+        StatoPartita statoPartita = new StatoPartita();
+
+        //pesco le tre carte del giocatore1
+        statoPartita.getGiocatore1().aggiungiCartaInMano(statoPartita.getMazzo().estrai());
+        statoPartita.getGiocatore1().aggiungiCartaInMano(statoPartita.getMazzo().estrai());
+        statoPartita.getGiocatore1().aggiungiCartaInMano(statoPartita.getMazzo().estrai());
+        statoPartita.getGiocatore1().stampaMano();
+
+        //pesco le tre carte del giocatore2
+        statoPartita.getGiocatore2().aggiungiCartaInMano(statoPartita.getMazzo().estrai());
+        statoPartita.getGiocatore2().aggiungiCartaInMano(statoPartita.getMazzo().estrai());
+        statoPartita.getGiocatore2().aggiungiCartaInMano(statoPartita.getMazzo().estrai());
+        statoPartita.getGiocatore2().stampaMano();
+
+        //pesco la carta di briscola
+        statoPartita.setBriscola(statoPartita.getMazzo().estrai());
+
+        System.out.println("\ncarte nel mazzo: " + statoPartita.getMazzo().getCarte().size());
+
+        Partita veraPartita = new Partita(statoPartita);
+        veraPartita.scegliCarta();
 
 /*        new Thread(new Runnable() {
             public void run() {
@@ -22,11 +39,6 @@ public class Main {
                 }
             }
         })*/
-
-        Partita partita = new Partita(cartaMano1, cartaMano2, cartaMano3, cartaBriscola);
-        partita.vincitoreGiocandoCarta(cartaMano1);
-
-
 
     }
 
