@@ -15,6 +15,20 @@ public class Giocatore {
         this.mano = new ArrayList<Carta>();
         this.mazzetto = new ArrayList<Carta>();
     }
+
+    public Giocatore copiaGiocatore() throws Exception{
+        Giocatore giocatoreCopiato = new Giocatore(this.getNome());
+        giocatoreCopiato.mano = new ArrayList<Carta>();
+        for (Carta i: this.mano){
+            giocatoreCopiato.aggiungiCartaInMano(i);
+        }
+        giocatoreCopiato.mazzetto = new ArrayList<Carta>();
+        for (Carta j: this.mazzetto){
+            giocatoreCopiato.mazzetto.add(j);
+        }
+        return giocatoreCopiato;
+    }
+
     public List<Carta> getMano() {
         return mano;
     }
@@ -27,6 +41,10 @@ public class Giocatore {
 
     public List<Carta> getMazzetto() {
         return mazzetto;
+    }
+
+    public void setMazzetto(List<Carta> mazzetto) {
+        this.mazzetto = mazzetto;
     }
 
     public String getNome(){
@@ -52,8 +70,12 @@ public class Giocatore {
         return cartaGiocata;
     }
 
-    public Carta giocaCarta(int i){
+    public Carta giocaCarta(int i) throws Exception{
         Carta cartaGiocata;
+        if (this.mano.size() <= i){
+            System.out.println("stai cercando di giocare la carta x ma hai una mano con meno di x carte");
+            throw new Exception();
+        }
         cartaGiocata = this.mano.get(i);
         this.mano.remove(i);
         return cartaGiocata;
